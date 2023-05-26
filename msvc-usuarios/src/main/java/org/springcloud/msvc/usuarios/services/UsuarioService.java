@@ -1,6 +1,6 @@
 package org.springcloud.msvc.usuarios.services;
 
-import org.springcloud.msvc.usuarios.models.entity.Usuario;
+import org.springcloud.msvc.usuarios.entity.Usuario;
 
 import java.util.List;
 import java.util.Optional;

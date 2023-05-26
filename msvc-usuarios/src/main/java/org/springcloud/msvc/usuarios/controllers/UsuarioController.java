@@ -1,6 +1,6 @@
 package org.springcloud.msvc.usuarios.controllers;
 
-import org.springcloud.msvc.usuarios.models.entity.Usuario;
+import org.springcloud.msvc.usuarios.entity.Usuario;
 import org.springcloud.msvc.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

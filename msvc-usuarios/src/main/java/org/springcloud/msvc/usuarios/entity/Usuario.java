@@ -15,11 +15,13 @@ public class Usuario {
     @NotBlank
     private String nombre;
 
-    @NotBlank
+
     @Email
     @Column(unique = true)
+    @NotBlank
     private String email;
 
+    @NotBlank
     private String password;
 
     public Long getId() {

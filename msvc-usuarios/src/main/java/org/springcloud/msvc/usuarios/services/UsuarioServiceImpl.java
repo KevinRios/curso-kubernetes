@@ -21,8 +21,8 @@ public class UsuarioServiceImpl implements UsuarioService{
         return (List<Usuario>) usuarioRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public Optional<Usuario> buscarUsuarioPorId(Long id) {
         return usuarioRepository.findById(id);
     }
@@ -45,6 +45,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Usuario> listarPorIds(Iterable<Long> ids) {
         return (List<Usuario>) usuarioRepository.findAllById(ids);
     }

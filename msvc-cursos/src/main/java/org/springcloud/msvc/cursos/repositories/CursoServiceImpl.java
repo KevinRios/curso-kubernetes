@@ -2,7 +2,7 @@ package org.springcloud.msvc.cursos.repositories;
 
 import org.springcloud.msvc.cursos.clients.UsuarioClientRest;
 import org.springcloud.msvc.cursos.entity.Curso;
-import org.springcloud.msvc.cursos.entity.CursoUsario;
+import org.springcloud.msvc.cursos.entity.CursoUsuario;
 import org.springcloud.msvc.cursos.models.Usuario;
 import org.springcloud.msvc.cursos.services.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CursoServiceImpl implements CursoService {
@@ -50,6 +49,12 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     @Transactional
+    public void eliminarCursoUsuarioPorId(Long id) {
+        cursoRepository.eliminarCursoUsuarioPorId(id);
+    }
+
+    @Override
+    @Transactional
     public Optional<Usuario> asignarUsuario(Usuario usuario, Long cursoId) {
 
         Optional<Curso> cursoOptional = cursoRepository.findById(cursoId);
@@ -58,10 +63,10 @@ public class CursoServiceImpl implements CursoService {
             Usuario usuarioMsvc = usuarioClient.detalleUsuario(usuario.getId());
 
             Curso curso = cursoOptional.get();
-            CursoUsario cursoUsario = new CursoUsario();
-            cursoUsario.setUsuarioId(usuarioMsvc.getId());
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioMsvc.getId());
 
-            curso.addCursoUsuario(cursoUsario);
+            curso.addCursoUsuario(cursoUsuario);
             cursoRepository.save(curso);
 
             return Optional.of(usuarioMsvc);
@@ -81,10 +86,10 @@ public class CursoServiceImpl implements CursoService {
             Usuario usuarioCreado= usuarioClient.crearUsuario(usuario);
 
             Curso curso = cursoOptional.get();
-            CursoUsario cursoUsario = new CursoUsario();
-            cursoUsario.setUsuarioId(usuarioCreado.getId());
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioCreado.getId());
 
-            curso.addCursoUsuario(cursoUsario);
+            curso.addCursoUsuario(cursoUsuario);
             cursoRepository.save(curso);
 
             return Optional.of(usuarioCreado);
@@ -103,10 +108,10 @@ public class CursoServiceImpl implements CursoService {
             Usuario usuarioMsvc = usuarioClient.detalleUsuario(usuario.getId());
 
             Curso curso = cursoOptional.get();
-            CursoUsario cursoUsario = new CursoUsario();
-            cursoUsario.setUsuarioId(usuarioMsvc.getId());
+            CursoUsuario cursoUsuario = new CursoUsuario();
+            cursoUsuario.setUsuarioId(usuarioMsvc.getId());
 
-            curso.removeCursoUsuario(cursoUsario);
+            curso.removeCursoUsuario(cursoUsuario);
             cursoRepository.save(curso);
 
             return Optional.of(usuarioMsvc);
@@ -116,6 +121,7 @@ public class CursoServiceImpl implements CursoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Curso> buscarCursoPorIdConUsuarios(Long id) {
         Optional<Curso> cursoOptional = cursoRepository.findById(id);
         if (cursoOptional.isPresent()){
@@ -130,7 +136,7 @@ public class CursoServiceImpl implements CursoService {
                 */
                 List<Long> listaIds = curso.getCursoUsarios()
                                                     .stream()
-                                                    .map(CursoUsario::getUsuarioId)
+                                                    .map(CursoUsuario::getUsuarioId)
                                                     .toList();
 
                 List<Usuario> usuarios = usuarioClient.obtenerAlumnosPorCurso(listaIds);

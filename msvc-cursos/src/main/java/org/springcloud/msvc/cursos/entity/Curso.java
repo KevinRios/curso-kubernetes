@@ -20,7 +20,7 @@ public class Curso {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "curso_id")
-    private List<CursoUsario> cursoUsarios;
+    private List<CursoUsuario> cursoUsuarios;
 
     @Transient
     private List<Usuario> usuarios;
@@ -28,7 +28,7 @@ public class Curso {
 
 
     public Curso() {
-        cursoUsarios = new ArrayList<>();
+        cursoUsuarios = new ArrayList<>();
         usuarios = new ArrayList<>();
     }
 
@@ -48,20 +48,20 @@ public class Curso {
         this.nombre = nombre;
     }
 
-    public List<CursoUsario> getCursoUsarios() {
-        return cursoUsarios;
+    public List<CursoUsuario> getCursoUsarios() {
+        return cursoUsuarios;
     }
 
-    public void setCursoUsarios(List<CursoUsario> cursoUsarios) {
-        this.cursoUsarios = cursoUsarios;
+    public void setCursoUsarios(List<CursoUsuario> cursoUsuarios) {
+        this.cursoUsuarios = cursoUsuarios;
     }
 
-    public void addCursoUsuario(CursoUsario cursoUsario){
-        cursoUsarios.add(cursoUsario);
+    public void addCursoUsuario(CursoUsuario cursoUsuario){
+        cursoUsuarios.add(cursoUsuario);
     }
 
-    public void removeCursoUsuario(CursoUsario cursoUsario){
-        cursoUsarios.remove(cursoUsario);
+    public void removeCursoUsuario(CursoUsuario cursoUsuario){
+        cursoUsuarios.remove(cursoUsuario);
     }
 
     public List<Usuario> getUsuarios() {

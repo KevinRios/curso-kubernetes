@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CursoServiceImpl implements CursoService {
@@ -128,17 +129,17 @@ public class CursoServiceImpl implements CursoService {
             Curso curso = cursoOptional.get();
 
             if(!curso.getCursoUsarios().isEmpty()){
-                /*
+
                 List<Long> listaIds = curso.getCursoUsarios()
                         .stream()
                         .map(cursoUsario -> cursoUsario.getUsuarioId())
                         .collect(Collectors.toList());
-                */
+               /*
                 List<Long> listaIds = curso.getCursoUsarios()
                                                     .stream()
                                                     .map(CursoUsuario::getUsuarioId)
                                                     .toList();
-
+  */
                 List<Usuario> usuarios = usuarioClient.obtenerAlumnosPorCurso(listaIds);
                 curso.setUsuarios(usuarios);
             }

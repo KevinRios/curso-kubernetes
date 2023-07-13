@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  mysl8:
+    image: mysql:8
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: msvc_usuarios
+    volumes:
+      - data-mysql:/var/lib/mysql
+    restart: always
+    networks:
+      - spring
+  postgres14:
+    image: postgres:14-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: msvc_cursos
+    volumes:
+      - data-postgres:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - spring
+
+  #  msvc-usuarios:
+
+  # msvc-cursos:
+
+  volumes:
+    data-mysql:
+    data-postgres:
+  networks:
+    spring:

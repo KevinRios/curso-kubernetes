@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  mysl8:
+  mysql8:
     image: mysql:8
     ports:
       - "3307:3306"
@@ -12,6 +12,7 @@ services:
     restart: always
     networks:
       - spring
+      -
   postgres14:
     image: postgres:14-alpine
     ports:
@@ -25,7 +26,16 @@ services:
     networks:
       - spring
 
-  #  msvc-usuarios:
+  msvc-usuarios:
+    image: usuarios
+    ports:
+      - "8001:8001"
+    env_file: ./msvc-usuarios/.env
+    networks:
+      - spring
+    depends_on:
+      - mysql8
+    restart: always
 
   # msvc-cursos:
 

@@ -12,7 +12,6 @@ services:
     restart: always
     networks:
       - spring
-      -
   postgres14:
     image: postgres:14-alpine
     ports:
@@ -27,7 +26,7 @@ services:
       - spring
 
   msvc-usuarios:
-    image: usuarios
+    image: usuarios:latest
     ports:
       - "8001:8001"
     env_file: ./msvc-usuarios/.env
@@ -37,10 +36,20 @@ services:
       - mysql8
     restart: always
 
-  # msvc-cursos:
+  msvc-cursos:
+    image: cursos:latest
+    ports:
+      - "8002:8002"
+    env_file:
+      - ./msvc-cursos/.env
+    networks:
+      - spring
+    depends_on:
+      - postgres14
+    restart: always
+volumes:
+  data-mysql:
+  data-postgres:
 
-  volumes:
-    data-mysql:
-    data-postgres:
-  networks:
-    spring:
+networks:
+  spring:
